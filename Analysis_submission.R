@@ -53,7 +53,7 @@ cl <- (Data_IgA$`SARS2_RBD`>2*250&Data_IgA$`SARS2_Spike_Trimer`>2*400)|
 
 
 #####
-#####Paper Figure 1 (+ Ext. Data Fig.3) - Comparison to Commercial tests####
+#####Paper Figure 1 + Table 1 (+ Supplementary Fig.3) - Comparison to Commercial tests####
 
 
 #The sample set for Figure 1 is a reduced set of only those samples 
@@ -115,8 +115,7 @@ rm(i,AGs)
 #Fig1, Panel b was created from the Raw_Data Table in excel and processed further with InkScape
 
 
-#Fig1, Panel c is a table showing test performance, it was created in Excel, except for the Confidence intervals
-
+#Table 1 is showing test performance, it was created in Excel, except for the Confidence intervals
 #Calculation of Clopper-Pearson 95% Confidence intervals
 
 #MultiCoV-AB IgG
@@ -157,11 +156,11 @@ binom.test(x=62,n=72)
 
 
 
-#Extended Data - Fig. 3 (Panels a-d)
+#Supplementary Fig. 3 (all 4 Panels)
 #Plots comparing MultiCoV-Ab Spike Trimer Signals to commercials assays
 
 #Spike Trimer vs Roche
-#pdf(paste("output/ExtFig/S_vs_Roche.pdf",sep=""),6,4.5)
+#pdf(paste("output/Suppl/S_vs_Roche.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F1_IgG[F1_IgG$COVID19_infection=="-","SARS2_Spike_Trimer"]/3000,
      F1_IgG[F1_IgG$COVID19_infection=="-","Signal_Roche"],
@@ -180,7 +179,7 @@ legend(10^par("usr")[1],10^par("usr")[4],
 #dev.off()
 
 #Spike Trimer vs Siemens
-#pdf(paste("output/ExtFig/S_vs_Siemens.pdf",sep=""),6,4.5)
+#pdf(paste("output/Suppl/S_vs_Siemens.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F1_IgG[F1_IgG$COVID19_infection=="-","SARS2_Spike_Trimer"]/3000,
      F1_IgG[F1_IgG$COVID19_infection=="-","Signal_Siemens"],
@@ -199,7 +198,7 @@ legend(10^par("usr")[1],10^par("usr")[4],
 #dev.off()
 
 #Spike Trimer vs Euroimmun
-#pdf(paste("output/ExtFig/S_vs_EuroImmun_IgG.pdf",sep=""),6,4.5)
+#pdf(paste("output/Suppl/S_vs_EuroImmun_IgG.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F1_IgG[F1_IgG$COVID19_infection=="-","SARS2_Spike_Trimer"]/3000,
      F1_IgG[F1_IgG$COVID19_infection=="-","Signal_Euro_IgG"],
@@ -218,7 +217,7 @@ legend(10^par("usr")[1],10^par("usr")[4],
 #dev.off()
 
 #Spike Trimer IgA vs Euroimmun IgA, Cutoff at 400
-#pdf(paste("output/ExtFig/S_vs_EuroImmun_IgA.pdf",sep=""),6,4.5)
+#pdf(paste("output/Suppl/S_vs_EuroImmun_IgA.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F1_IgA[F1_IgA$COVID19_infection=="-","SARS2_Spike_Trimer"]/400,
      F1_IgA[F1_IgA$COVID19_infection=="-","Signal_Euro_IgA"],
@@ -240,7 +239,7 @@ legend(10^par("usr")[1],10^par("usr")[4],
 rm(F1_IgG,F1_IgA)
 
 #####
-#####Paper Figure 2 - Screening results, cutoffs, comparison among SARS-CoV-2 antigens####
+#####Paper Figure 2 + Table 3 - Screening results, cutoffs, comparison among SARS-CoV-2 antigens####
 
 
 #For Figure 2, use all Samples
@@ -248,9 +247,9 @@ F2_IgG <- Data_IgG
 F2_IgA <- Data_IgA
 
 
-#Figure 2, Panel a (and Extended Data Table 2) is a simple table with sample numbers which was not generated using R
+#Table 2 (and Supplementary Table 2) is a simple table with sample numbers which was not generated using R
 
-#Figure 2, Panel b
+#Table 3
 #Create Table for Sens/Spec of the respective cutoffs
 a <- data.frame(matrix(NA,ncol=5,nrow=8)) 
 names(a) <- c("Cutoff","Correct Positives","Correct Negatives","%Sens","%Spec")
@@ -340,7 +339,7 @@ a$PPV_3 <- PPV_3
 a$NPV_3 <- NPV_3
 
 
-#write.table(a,"output/Fig2/Fig2b.csv",sep=",",row.names=F,col.names=T)
+#write.table(a,"output/Tables/Table3.csv",sep=",",row.names=F,col.names=T)
 rm(a,Sens_CI,Spec_CI,PPV_3,NPV_3,i)
 
 
@@ -349,9 +348,8 @@ rm(a,Sens_CI,Spec_CI,PPV_3,NPV_3,i)
 
 
 
-#Figure 2, Panel c - Displays the necessity of a combined cutoff - Spike + RBD
-par(mar=c(5,4,4,2),mfrow=c(1,1))
-#pdf(paste("output/Fig2/Fig2c.pdf",sep=""),6,4.5)
+#Figure 2, Panel a - Displays the necessity of a combined cutoff - Spike + RBD
+#pdf(paste("output/Fig2/Fig2a.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F2_IgG[F2_IgG$COVID19_infection=="-","SARS2_Spike_Trimer"]/3000,
      F2_IgG[F2_IgG$COVID19_infection=="-","SARS2_RBD"]/450,
@@ -375,8 +373,8 @@ legend(10^par("usr")[1],10^par("usr")[4],
 
 
 
-#Panel d - IgA Response as supplement to IgG - SARS2_Spike_Trimer vs SARS2_RBD
-#pdf(paste("output/Fig2/Fig2d.pdf",sep=""),6,4.5)
+#Panel b - IgA Response as supplement to IgG - SARS2_Spike_Trimer vs SARS2_RBD
+#pdf(paste("output/Fig2/Fig2b.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F2_IgA[F2_IgA$COVID19_infection=="-","SARS2_Spike_Trimer"]/400,
      F2_IgA[F2_IgA$COVID19_infection=="-","SARS2_RBD"]/250,
@@ -410,10 +408,10 @@ legend(10^par("usr")[1],10^par("usr")[4],
 
 
 
-#Panel e - Comparison of Spike subdomains (only IgG)
+#Panel c - Comparison of Spike subdomains (only IgG)
 #Display S2 vs S1:
 
-#pdf(paste("output/Fig2/Fig2e.pdf",sep=""),6,4.5)
+#pdf(paste("output/Fig2/Fig2c.pdf",sep=""),6,4.5)
 #IgG
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F2_IgG[F2_IgG$COVID19_infection=="-","SARS2_S2"],
@@ -433,16 +431,16 @@ legend(10^par("usr")[1],10^par("usr")[4],
          paste("SARS-CoV-2 + S - (n=",nrow(F2_IgG[F2_IgG$COVID19_infection=="+"&!cl,]),")",sep=""),
          paste("SARS-CoV-2 - S - (n=",nrow(F2_IgG[F2_IgG$COVID19_infection=="-",]),")",sep="")),
        pch=1,col=c("cyan","red","black"),cex=0.8)
+#dev.off()
 
 
 
 
 
-
-#Panel f - Nucleocapsid antigens (IgG)
+#Panel d - Nucleocapsid antigens (IgG)
 
 #Display N vs NTD and highlight Spike positive samples
-#pdf(paste("output/Fig2/Fig2f.pdf",sep=""),6,4.5)
+#pdf(paste("output/Fig2/Fig2d.pdf",sep=""),6,4.5)
 par(mar=c(5,4,4,2),mfrow=c(1,1))
 plot(F2_IgG[F2_IgG$COVID19_infection=="-","SARS2_N"],
      F2_IgG[F2_IgG$COVID19_infection=="-","SARS2_N_NTD"],
@@ -461,6 +459,7 @@ legend(10^par("usr")[1],10^par("usr")[4],
          paste("SARS-CoV-2 + S - (n=",nrow(F2_IgG[F2_IgG$COVID19_infection=="+"&!cl,]),")",sep=""),
          paste("SARS-CoV-2 - S - (n=",nrow(F2_IgG[F2_IgG$COVID19_infection=="-",]),")",sep="")),
        pch=1,col=c("cyan","red","black"),cex=0.8)
+#dev.off()
 
 
 #
@@ -520,7 +519,7 @@ rm(AGs,c,i,j,IgG,IgA,col)
 #Fig3, Panel b - Effect of Hospitalisation
 
 AGs <- c("SARS2_Spike_Trimer","SARS2_RBD","SARS2_N")
-pdf(paste("output/Fig3/Fig3b.pdf",sep=""),8,6)
+#pdf(paste("output/Fig3/Fig3b.pdf",sep=""),8,6)
 par(mfrow=c(1,2),mar=c(5,4.25,3,4.25))
 for (i in AGs){
   boxplot(log10(F3_IgG[F3_IgG$COVID19_infection=="+"&F3_IgG$COVID19_hospitalized=="+",i]),
@@ -553,7 +552,7 @@ for (i in AGs){
   mtext(c("IgG","IgA"),side=1,line=2,at=c(1.5,4.5),cex=1)
   mtext(i,side=3,line=1,cex=1)
 }
-dev.off()
+#dev.off()
 rm(i,AGs)
 
 
@@ -727,11 +726,11 @@ rm(MWU)
 rm(F3_IgA,F3_IgG)
 
 #####
-#####Paper Figure 4 - hCoV Analysis for cross-reactivity#####
+#####Paper Figure 4 and 5 - hCoV Analysis for cross-reactivity#####
 
 #Data to work with for Fig4
 
-#For Figure 4, use all Samples
+#For Figure 4 (and 5), use all Samples
 F4_IgG <- Data_IgG
 F4_IgA <- Data_IgA
 
@@ -764,7 +763,7 @@ rm(x,hmcol)
 #Further editing done in inkscape
 
 
-#Extended Data Fig. 6 - Panel a - Correlation Heatmap for all Antigens using IgA Data
+#Supplementary Fig. 6 - Panel a - Correlation Heatmap for all Antigens using IgA Data
 
 x <- F4_IgA[,c("SARS2_Spike_Trimer","SARS2_RBD","SARS2_S1","SARS2_S2","SARS2_N","SARS2_N_NTD",
                 "229E_N","229E_N_NTD","229E_S1",
@@ -773,7 +772,7 @@ x <- F4_IgA[,c("SARS2_Spike_Trimer","SARS2_RBD","SARS2_S1","SARS2_S2","SARS2_N",
                 "HKU1_N","HKU1_N_NTD","HKU1_S1")]
 x <- cor(x,method="spearman")
 hmcol <- colorRampPalette(c(col2hex("red"),col2hex("white"),col2hex("blue")))(50)
-#pdf("output/ExtFig/ExtFig6a.pdf",8,8)
+#pdf("output/Suppl/SupplFig6a.pdf",8,8)
 heatmap.2(x,main="Correlation of Antigens",scale='none',
           Colv=T,Rowv=T,dendrogram='row',
           labRow="",labCol=colnames(x),
@@ -785,7 +784,8 @@ rm(x,hmcol)
 
 
 
-#Fig4, Panel b & c + Ext.Data - Fig 6 b - Display hCoV AGs signals for COVID+ vs COVID- as Boxplots (N NTDs are shown in ext. Data)
+#Fig4, Panel b & c + Supplementary Fig. 6b - Display hCoV AGs signals for COVID+ vs COVID- 
+#     as Boxplots (N NTDs are shown in Supplementary as Figure 6b)
 
 for (i in c("S1","N_NTD","N")){
   #pdf(paste("output/Fig4/Boxplots_hCOV_",i,".pdf",sep=""),8,6)
@@ -856,9 +856,9 @@ for (i in c("S1","N")){
 rm(i)
 
 
-# Ext.Data - Fig 6 c - Same analysis as above for N NTD
+# Supplementary Fig 6c - Same analysis as above for N NTD
 for (i in c("N_NTD")){
-  #pdf(paste("output/ExtFig/Boxplots_FalsePosNeg_",i,".pdf",sep=""),8,5)
+  #pdf(paste("output/Suppl/Boxplots_FalsePosNeg_",i,".pdf",sep=""),8,5)
   par(mfrow=c(1,1),mar=c(5,4.25,3,4.25))
   beeswarm(list(FalsePosS[,paste("NL63",i,sep="_")],FalseNeg[,paste("NL63",i,sep="_")],
                 FalsePosS[,paste("229E",i,sep="_")],FalseNeg[,paste("229E",i,sep="_")],
@@ -883,11 +883,11 @@ rm(FalseNeg,FalsePosS)
 
 
 
-#Fig4, Panel f - Grouping into hCoV high and low responders (IgG Response)
+#Fig5 - Grouping into hCoV high and low responders (IgG Response)
 
 
 #Create High and low responder subgroups, scaled signals have to be >0 for all 4 alpha/beta-CoV antigens
-#Also create the overlapping group with classification positives as well for the following analysis
+#Also create the overlapping group with classification positives as well for the following analysis (ending in "P")
 AlphaUp <- Sc_IgG[Sc_IgG$`NL63_S1`>0&Sc_IgG$`229E_S1`>0&
                     Sc_IgG$`NL63_N`>0&Sc_IgG$`229E_N`>0,]
 AlphaUpP <- Sc_IgG[Sc_IgG$`NL63_S1`>0&Sc_IgG$`229E_S1`>0&
@@ -910,7 +910,7 @@ P <- Sc_IgG[cl,]
 
 
 #Display group phenotypes as boxplot
-#pdf(paste("output/Fig4/Fig4f_Group_Phenotypes.pdf",sep=""),10,8)
+#pdf(paste("output/Fig5/Fig5a.pdf",sep=""),10,8)
 par(mar=c(4,3,4,2),mfrow=c(2,2))
 boxplot(AlphaUp[,"NL63_S1"],AlphaUp[,"229E_S1"],
         AlphaUp[,"OC43_S1"],AlphaUp[,"HKU1_S1"],
@@ -951,6 +951,8 @@ abline(h=0,lty=2)
 #dev.off()
 
 
+#Panel b - venn Diagrams of overlap
+
 #Get a mixture of the group colors and "ivory" for the venn diagrams
 col1 <- data.frame(as.character(brewer.pal(6, "Set1")),NA)
 for (i in 1:6){col1[i,2] <- designer.colors(n=6, col=c(as.character(col1[i,1]),"ivory"))[5]}
@@ -958,7 +960,7 @@ rm(i)
 
 
 #Venn Diagrams
-#pdf(paste("output/Fig4/Fig4f_Venn_Overlap.pdf",sep=""),8,5)
+#pdf(paste("output/Fig5/Fig5b.pdf",sep=""),8,5)
 plot(euler(c("a-CoV+"=nrow(AlphaUp)-nrow(AlphaUpP),"SARS2+"=nrow(P)-nrow(AlphaUpP),"a-CoV+&SARS2+"=nrow(AlphaUpP))),
      input="disjoint",fill=c(paste(col1[1,1],"70",sep=""),paste(col1[1,2],"70",sep="")),lwd=2)
 plot(euler(c("a-CoV-"=nrow(AlphaDown)-nrow(AlphaDownP),"SARS2+"=nrow(P)-nrow(AlphaDownP),"a-CoV-&SARS2+"=nrow(AlphaDownP))),
@@ -970,7 +972,7 @@ plot(euler(c("b-CoV-"=nrow(BetaDown)-nrow(BetaDownP),"SARS2+"=nrow(P)-nrow(BetaD
 #dev.off()
 
 
-#Fishers Exact Test to see if enrichment occurs, the 4 p-values are manually annotated to Fig.4 panel f in inkscape
+#Fishers Exact Test to see if enrichment occurs, the 4 p-values are manually annotated to Fig.5 panel b in inkscape
 
 #use formatC in order to get scientific notation
 #Positives in above average alpha-CoV responders
@@ -991,10 +993,10 @@ rm(AlphaDown,AlphaDownP,AlphaUp,AlphaUpP,P,BetaDown,BetaDownP,BetaUp,BetaUpP,col
 rm(F4_IgG,F4_IgA,Sc_IgG,Sc_IgA)
 
 #####
-#####Extended Data Figure 5 - delta T vs MFI####
+#####Supplementary Figure 5 - delta T vs MFI####
 
 
-#pdf("output/ExtFig/ExtFig5_dT_effects.pdf",9,6)
+#pdf("output/Suppl/SupplFig5_dT_effects.pdf",9,6)
 par(mfrow=c(2,3),mar=c(4,4,4,4))
 for (i in c("SARS2_Spike_Trimer","SARS2_RBD","SARS2_S1","SARS2_S2","SARS2_N","SARS2_N_NTD")){
   plot(Data_IgG$COVID19_dT,Data_IgG[,i],log="y",
@@ -1022,7 +1024,7 @@ rm(i)
 
 
 #####
-#####Extended Data Figure 4 - ROC Analysis####
+#####Supplementary Figure 4 - ROC Analysis####
 
 
 #ROC-Analysis for SARS CoV 2 Antigens
@@ -1117,7 +1119,7 @@ MESS_auc <- function(x, y, from = min(x, na.rm=TRUE), to = max(x, na.rm=TRUE), t
 AGs <- c("SARS2_Spike_Trimer","SARS2_RBD","SARS2_S1","SARS2_S2","SARS2_N","SARS2_N_NTD")
 #List for export of performance
 Export <- list()
-#pdf("output/ExtFig/ExtFig4_ROC_Analysis.pdf",9,6)
+#pdf("output/Suppl/SupplFig4_ROC_Analysis.pdf",9,6)
 par(mfrow=c(2,3),mar=c(4,4,4,4))
 for (k in c("IgG","IgA")){
   for (j in AGs){
@@ -1160,11 +1162,11 @@ for (k in c("IgG","IgA")){
     rm(Performance)
   }
 }
-dev.off()
+#dev.off()
 #Export of List of possible cutoffs with respective peformance
 for(i in AGs){
-  #write.table(Export[[paste(i,"IgG")]],paste("output/ExtFig/ROC_",i,"_IgG.csv",sep=""),sep=",",row.names=F,col.names=T)
-  #write.table(Export[[paste(i,"IgA")]],paste("output/ExtFig/ROC_",i,"_IgA.csv",sep=""),sep=",",row.names=F,col.names=T)
+  #write.table(Export[[paste(i,"IgG")]],paste("output/Suppl/ROC_",i,"_IgG.csv",sep=""),sep=",",row.names=F,col.names=T)
+  #write.table(Export[[paste(i,"IgA")]],paste("output/Suppl/ROC_",i,"_IgA.csv",sep=""),sep=",",row.names=F,col.names=T)
 }
 
 
@@ -1175,7 +1177,7 @@ for(i in AGs){
 rm(AGs,i,j,k,Export,AUC,MESS_auc)
 
 #####
-#####Extended Data Figure 8 - Time series for hCoV antigens####
+#####Supplementary Figure 7 - Time series for hCoV antigens####
 
 
 #Retain only patients with multiple samples for this panel
@@ -1186,7 +1188,7 @@ IgG <- Data_IgG[!is.na(Data_IgG$Time_series_PatientID),]
 AGs <- c("NL63_S1","NL63_N","NL63_N_NTD","229E_S1","229E_N","229E_N_NTD",
          "OC43_S1","OC43_N","OC43_N_NTD","HKU1_S1","HKU1_N","HKU1_N_NTD")
 col <- colorRampPalette(brewer.pal(11,"Spectral")[c(8:11,1:3)])(5)
-#pdf(paste("output/ExtFig/ExtFig8_Time_Series_hCoVs.pdf",sep=""),6,6.8)
+#pdf(paste("output/Suppl/SupplFig7_Time_Series_hCoVs.pdf",sep=""),6,6.8)
 par(mfrow=c(3,2),mar=c(5,5,4,4))
 for (j in AGs){
   plot(1,1,cex=0,xlim=range(as.numeric(IgG$COVID19_dT)),ylim=range(IgG[,j]),
@@ -1236,7 +1238,7 @@ pchlist <- c(1,1,1,1,2,1,4,1,4,2)
 
 
 #Plots MFI vs Dilution for all, Note that only Spike Trimer and RBD are shown in the paper
-#pdf(paste("output/ExtFig/ExtFig2_Parallelism.pdf",sep=""),12,6)
+#pdf(paste("output/Suppl/SupplFig2_Parallelism.pdf",sep=""),12,6)
 par(mfrow=c(1,2))
 for (i in unique(Para$Analyte)){
   par(mfrow=c(1,2))
@@ -1290,7 +1292,7 @@ QC_IgA <- QC_IgA[c(1:110,112:136),]#Row 111 is the outlier
 #Display for the QCs of each individual antigen - RBD and Spike Trimer are shown in Ext. Data Fig 2
 #Loop at the same time complies a summary table
 nplates <- 17
-#pdf(paste("output/ExtFig/ExtFig2_QC_performance.pdf",sep=""),7.84,5.66)
+#pdf(paste("output/Suppl/SupplFig2_QC_performance.pdf",sep=""),7.84,5.66)
 for (i in names(QC_IgG)[3:ncol(QC_IgG)]){
   plot(1,1,log="y",xaxt="none",ylab="MFI",xlab="Plate Number",ylim=c(10,50000),xlim=c(1-0.2*(nplates-1),nplates),
        main=paste("QC performance -",i))  
@@ -1383,12 +1385,12 @@ for (i in names(QC_IgG)[3:ncol(QC_IgG)]){
 }
 #dev.off()
 
-#Export stats as .csv file
+#Export stats as .csv file, these values are the measure for inter assay variance and are also displayed in Supplementary Table 1
 rownames(rep) <- rep[,1]
 rep <- rep[,2:ncol(rep)]
 names(rep) <- names(QC_IgG)[3:ncol(QC_IgG)]
 rm(i,j,tmp,cv1,cv2,cv3,cv4,m1,m2,m3,m4,cv5,cv6,cv7,cv8,m5,m6,m7,m8,nplates)
-#write.table(rep,"output/ExtFig/ExtFig2_QC_Performance.csv",row.names=T,col.names=NA,sep=",")
+#write.table(rep,"output/Suppl/SupplFig2_QC_Performance.csv",row.names=T,col.names=NA,sep=",")
 rm(QC_IgA,QC_IgG,rep)
 
 
